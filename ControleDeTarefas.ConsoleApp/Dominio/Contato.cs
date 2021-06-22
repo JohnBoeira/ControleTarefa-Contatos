@@ -21,9 +21,8 @@ namespace ControleDeTarefas.ConsoleApp.Dominio
             this.empresa = empresa;
             this.cargo = cargo;
         }
-        public Contato( string nome, string email, string telefone, string empresa, string cargo)
-        {
-         
+        public Contato(string nome, string email, string telefone, string empresa, string cargo)
+        {       
             this.nome = nome;
             this.email = email;
             this.telefone = telefone;

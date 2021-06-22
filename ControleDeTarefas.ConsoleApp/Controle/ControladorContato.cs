@@ -24,7 +24,7 @@ namespace ControleDeTarefas.ConsoleApp.Controle
             return listaPorCargo;
         }
         #region CRUD override
-        public override void InserirNoBanco(Contato registro)
+        protected override void InserirNoBanco(Contato registro)
         {
             SqlConnection con;
             SqlCommand comando;
@@ -51,13 +51,12 @@ namespace ControleDeTarefas.ConsoleApp.Controle
 
             con.Close();
         }
-        public override void EditarNoBanco(Contato registro, int id)
+        protected override void EditarNoBanco(Contato registro, int id)
         {
             SqlConnection con;
             SqlCommand comando;
             AbrirConexao(out con, out comando);
             //config comando
-
 
             string sqlAtualizacao =
                     @"UPDATE TB_Contatos
@@ -86,7 +85,7 @@ namespace ControleDeTarefas.ConsoleApp.Controle
             con.Close();
         }
 
-        public override void ExcluirNoBanco(int id)
+        protected override void ExcluirNoBanco(int id)
         {
             SqlConnection con;
             SqlCommand comando;
@@ -127,7 +126,7 @@ namespace ControleDeTarefas.ConsoleApp.Controle
             return contatos;
         }
 
-        public override string PegarStringSelecao()
+        protected override string PegarStringSelecao()
         {
             return @"SELECT * FROM TB_Contatos";
         }

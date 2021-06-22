@@ -10,8 +10,8 @@ namespace ControleDeTarefas.ConsoleApp.Controle
 {
     public class ControladorTarefa : ControladorBase<Tarefa>
     {
-        #region metodosHerdados
-        public override void InserirNoBanco(Tarefa tarefa)
+        #region metodosCRUD
+        protected override void InserirNoBanco(Tarefa tarefa)
         {
             SqlConnection con;
             SqlCommand comando;
@@ -27,7 +27,6 @@ namespace ControleDeTarefas.ConsoleApp.Controle
             comando.Parameters.AddWithValue("titulo", tarefa.titulo);
             comando.Parameters.AddWithValue("prioridade", tarefa.prioridade);
             comando.Parameters.AddWithValue("dataDeCriacao", tarefa.dataDeCriacao);
-
             comando.Parameters.AddWithValue("percentualDeConclusao", tarefa.percentualDeConclusao);
             //executa
             object id = comando.ExecuteScalar();
@@ -36,30 +35,43 @@ namespace ControleDeTarefas.ConsoleApp.Controle
 
             con.Close();
         }
-        public override void EditarNoBanco(Tarefa tarefa, int id)
+        protected override void EditarNoBanco(Tarefa tarefa, int id)
         {
             SqlConnection con;
             SqlCommand comando;
             AbrirConexao(out con, out comando);
             //config comando
-
-
-            string sqlAtualizacao =
+            string sqlAtualizacao = null;
+            if (tarefa.dataConclusao != DateTime.MinValue)
+            {
+                sqlAtualizacao =
                     @"UPDATE TB_Tarefa 
 	                SET	
 		                [titulo] = @titulo, 
 		                [prioridade]=@prioridade, 
-		                [dataDeCriacao] = @dataDeCriacao,                       
+		                [dataConclusao] = @dataConclusao,                       
                         [percentualDeConclusao] = @percentualDeConclusao
 	                WHERE 
 		                [ID] = @ID";
 
+                comando.Parameters.AddWithValue("dataConclusao", tarefa.dataConclusao);
+            }
+            else
+            {
+                sqlAtualizacao =
+                    @"UPDATE TB_Tarefa 
+	                SET	
+		                [titulo] = @titulo, 
+		                [prioridade]=@prioridade, 		                                  
+                        [percentualDeConclusao] = @percentualDeConclusao
+	                WHERE 
+		                [ID] = @ID";
+            }
+            
             comando.CommandText = sqlAtualizacao;
 
             comando.Parameters.AddWithValue("titulo", tarefa.titulo);
-            comando.Parameters.AddWithValue("prioridade", tarefa.prioridade);
-            comando.Parameters.AddWithValue("dataDeCriacao", tarefa.dataDeCriacao);
-
+            comando.Parameters.AddWithValue("prioridade", tarefa.prioridade);        
             comando.Parameters.AddWithValue("percentualDeConclusao", tarefa.percentualDeConclusao);
             comando.Parameters.AddWithValue("ID", id);
             //executa
@@ -68,7 +80,7 @@ namespace ControleDeTarefas.ConsoleApp.Controle
 
             con.Close();
         }
-        public override void ExcluirNoBanco(int id)
+        protected override void ExcluirNoBanco(int id)
         {
             SqlConnection con;
             SqlCommand comando;
@@ -90,30 +102,33 @@ namespace ControleDeTarefas.ConsoleApp.Controle
         }
         #endregion      
         
-        public void MudarPercentualConclusao(int id, int percentual)
+        public List<Tarefa> ListarTarefasAbertas()
         {
-            SqlConnection con;
-            SqlCommand comando;
-            AbrirConexao(out con, out comando);
-
-
-            string sqlAtualizacao =
-                        @"UPDATE TB_Tarefa 
-	                SET			               
-                        [percentualDeConclusao] = @percentualDeConclusao
-	                WHERE 
-		                [ID] = @ID";
-
-            comando.CommandText = sqlAtualizacao;
-
-            comando.Parameters.AddWithValue("percentualDeConclusao", percentual);
-            comando.Parameters.AddWithValue("ID", id);
-            //executa
-
-            comando.ExecuteNonQuery();
-
-            con.Close();
+            List<Tarefa> todasTarefas = ListarRegistrosDoBanco();
+            List<Tarefa> tarefasAbertas = new List<Tarefa>();
+            foreach (var item in todasTarefas)
+            {
+                if (item.dataConclusao == DateTime.MinValue)
+                {
+                    tarefasAbertas.Add(item);
+                }
+            }
+            return tarefasAbertas;
         }
+        public List<Tarefa> ListarTarefasFechadas()
+        {
+            List<Tarefa> todasTarefas = ListarRegistrosDoBanco();
+            List<Tarefa> tarefasFechadas = new List<Tarefa>();
+            foreach (var item in todasTarefas)
+            {
+                if (item.dataConclusao != DateTime.MinValue)
+                {
+                    tarefasFechadas.Add(item);
+                }
+            }
+            return tarefasFechadas;
+        }
+        
         public void ConcluirTarefa(int id)
         {
             string enderecoDeConexao = @"Data Source=(LocalDb)\MSSqlLocalDB;Initial Catalog=DB_ControleDeTarefa;Integrated Security=True;Pooling=False";
@@ -143,7 +158,7 @@ namespace ControleDeTarefas.ConsoleApp.Controle
         }
 
         #region metodosOverride
-        public override string PegarStringSelecao()
+        protected override string PegarStringSelecao()
         {
             return @"SELECT *                    
                     FROM 

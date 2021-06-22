@@ -74,7 +74,7 @@ namespace ControleDeTarefas.ConsoleApp.Controle
             return registros.Find(x => x.id == id);
         }
 
-        public void AbrirConexao(out SqlConnection con, out SqlCommand comando)
+        protected void AbrirConexao(out SqlConnection con, out SqlCommand comando)
         {
             string enderecoDeConexao = @"Data Source=(LocalDb)\MSSqlLocalDB;Initial Catalog=DB_ControleDeTarefa;Integrated Security=True;Pooling=False";
             //abre conexao
@@ -85,10 +85,10 @@ namespace ControleDeTarefas.ConsoleApp.Controle
             comando.Connection = con;
         }
 
-        public abstract void InserirNoBanco(T registro);
-        public abstract void EditarNoBanco(T registro, int id);
-        public abstract void ExcluirNoBanco(int id);
-        public abstract string PegarStringSelecao();
+        protected abstract void InserirNoBanco(T registro);
+        protected abstract void EditarNoBanco(T registro, int id);
+        protected abstract void ExcluirNoBanco(int id);
+        protected abstract string PegarStringSelecao();
         public abstract List<T> LerRegistros(SqlDataReader leitorRegistro);
     }
 }

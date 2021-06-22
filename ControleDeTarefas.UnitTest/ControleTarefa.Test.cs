@@ -41,19 +41,22 @@ namespace ControleDeTarefas.UnitTest
         {
             DeletaTabelaTarefa();
             Tarefa tarefa = new Tarefa("Programar", 3);       
-            controladorTarefa.Inserir(tarefa);          
+            controladorTarefa.Inserir(tarefa);         
+            //testa
             Assert.AreEqual("Programar", controladorTarefa.SelecionarUmRegistroPorId(1).titulo);
-            Assert.AreEqual(1, controladorTarefa.ListarRegistrosDoBanco().Count) ;
+            Assert.AreEqual(1, controladorTarefa.ListarRegistrosDoBanco().Count);
         }
 
         [TestMethod]
         public void Editar()
         {     
             InserirRegistroNoBanco();
-            Tarefa tarefa = new Tarefa("Desenhar", 2);
-            //controladorTarefa.EditarNoBanco(tarefa, 1);
+            Tarefa tarefa = new Tarefa();
+            tarefa.titulo = "Desenhar";
+            tarefa.prioridade = 2;
             controladorTarefa.Editar(1, tarefa);
             Assert.AreEqual("Desenhar", controladorTarefa.SelecionarUmRegistroPorId(1).titulo);
+            Assert.AreEqual(2, controladorTarefa.SelecionarUmRegistroPorId(1).prioridade);
         }
         
         [TestMethod]
@@ -63,16 +66,7 @@ namespace ControleDeTarefas.UnitTest
             InserirRegistroNoBanco();
             controladorTarefa.Excluir(1);
             Assert.AreEqual(0, controladorTarefa.ListarRegistrosDoBanco().Count);
-        }
-
-        [TestMethod]
-        public void EditarPercentualConclusao()
-        {
-         
-            InserirRegistroNoBanco();
-            controladorTarefa.MudarPercentualConclusao(1, 90);
-            Assert.AreEqual(90, controladorTarefa.SelecionarUmRegistroPorId(1).percentualDeConclusao);
-        }
+        }       
 
         [TestMethod]
         public void ConcluirTarefa()

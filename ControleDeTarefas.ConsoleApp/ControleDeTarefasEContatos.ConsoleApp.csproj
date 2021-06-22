@@ -51,12 +51,14 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dominio\Tarefa.cs" />
+    <Compile Include="Telas\TelaBase.cs" />
+    <Compile Include="Telas\TelaContato.cs" />
+    <Compile Include="Telas\TelaPrincipal.cs" />
+    <Compile Include="Telas\TelaTarefa.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Telas\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

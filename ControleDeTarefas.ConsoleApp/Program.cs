@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ControleDeTarefas.ConsoleApp.Telas;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -11,11 +12,9 @@ namespace ControleDeTarefas.ConsoleApp
     {
         static void Main(string[] args)
         {
-           
+            TelaPrincipal telaPrincipal = new TelaPrincipal();
+            telaPrincipal.SelecionaTela();
 
-
-        }
-
-        
+        }       
     }
 }

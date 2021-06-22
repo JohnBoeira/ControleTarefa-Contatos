@@ -15,7 +15,7 @@ namespace ControleDeTarefas.ConsoleApp.Dominio
         public DateTime dataDeCriacao;
         public DateTime dataConclusao;
         public int percentualDeConclusao;
-        //para testes
+        //para inserir
         public Tarefa(string titulo, int prioridade)
         {
             this.titulo = titulo;
@@ -23,6 +23,7 @@ namespace ControleDeTarefas.ConsoleApp.Dominio
             this.dataDeCriacao = DateTime.Now;       
             this.percentualDeConclusao = 0;
         }
+
         //para banco
         public Tarefa(int id, string titulo, int prioridade, DateTime dataDeCriacao, DateTime dataConclusao, int percentualDeConclusao)
         {
@@ -33,6 +34,12 @@ namespace ControleDeTarefas.ConsoleApp.Dominio
             this.dataConclusao = dataConclusao;
             this.percentualDeConclusao = percentualDeConclusao;
         }
+        //para editar
+        public Tarefa()
+        {
+
+        }
+        
         public override bool Validar()
         {
             if (titulo.Length == 0)
