@@ -17,7 +17,7 @@ namespace ControleDeTarefas.ConsoleApp.Telas
             return Convert.ToInt32(Console.ReadLine());
         }
    
-        protected void MostrarOpcoesBasica()
+        protected void MostrarOpcoesBasicaCRUD()
         {
             Console.WriteLine("Entre 1 para Inserir");
             Console.WriteLine("Entre 2 para Editar");

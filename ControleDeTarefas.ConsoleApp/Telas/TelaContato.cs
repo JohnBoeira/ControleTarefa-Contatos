@@ -23,7 +23,7 @@ namespace ControleDeTarefas.ConsoleApp.Telas
             do
             {
                 Console.Clear();
-                MostrarOpcoesBasica();
+                MostrarOpcoesBasicaCRUD();
                 Console.WriteLine("Entre 4 para Listar por Cargo");
                 Console.WriteLine("Entre 5 para listar todos");
                 Console.WriteLine("Entre S para Voltar");
@@ -34,10 +34,10 @@ namespace ControleDeTarefas.ConsoleApp.Telas
 
         public void ExecutarUmaAcao()
         {
-
-            while (true)
+            string opcao = null;
+            while(opcao != "S")
             {
-                string opcao = ObterOpcao();
+                 opcao = ObterOpcao();
                 switch (opcao)
                 {
                     case "1": controladorContato.Inserir(PegarRegistro()); break;

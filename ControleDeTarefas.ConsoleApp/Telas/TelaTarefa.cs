@@ -23,7 +23,7 @@ namespace ControleDeTarefas.ConsoleApp.Telas
             do
             {
                 Console.Clear();
-                MostrarOpcoesBasica();
+                MostrarOpcoesBasicaCRUD();
                 Console.WriteLine("Entre 4 para Concluir");
                 Console.WriteLine("Entre 5 para listar tarefas abertas");
                 Console.WriteLine("Entre 6 para listar tarefas fechadas");

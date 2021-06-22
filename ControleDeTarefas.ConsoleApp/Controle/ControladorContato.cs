@@ -31,6 +31,7 @@ namespace ControleDeTarefas.ConsoleApp.Controle
             AbrirConexao(out con, out comando);
             //config comando       
 
+            
             string sqlInsercao = @"INSERT INTO TB_Contatos ([nome], [telefone], [email], [empresa], [cargo]) VALUES (@nome, @telefone, @email, @empresa, @cargo);";
 
             sqlInsercao += @"SELECT SCOPE_IDENTITY();";

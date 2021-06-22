@@ -100,8 +100,7 @@ namespace ControleDeTarefas.ConsoleApp.Controle
 
             con.Close();
         }
-        #endregion      
-        
+        #endregion             
         public List<Tarefa> ListarTarefasAbertas()
         {
             List<Tarefa> todasTarefas = ListarRegistrosDoBanco();
@@ -142,13 +141,15 @@ namespace ControleDeTarefas.ConsoleApp.Controle
             string sqlAtualizacao =
                     @"UPDATE TB_Tarefa 
 	                SET			               
-                        [dataConclusao] = @dataConclusao
+                        [dataConclusao] = @dataConclusao,
+                        [percentualDeConclusao] = @percentualDeConclusao
 	                WHERE 
 		                [ID] = @ID";
 
             comando.CommandText = sqlAtualizacao;
 
             comando.Parameters.AddWithValue("dataConclusao", DateTime.Now);
+            comando.Parameters.AddWithValue("percentualDeConclusao", 100);
             comando.Parameters.AddWithValue("ID", id);
             //executa
 
