@@ -8,21 +8,45 @@ using System.Threading.Tasks;
 
 namespace ControleDeTarefas.ConsoleApp.Telas
 {
-    public abstract class TelaBase<T> where T : EntidadeBase
-    {
-   
-        protected int SelecionarIdParaAlteracao()
+    public abstract class TelaBase
+    {     
+        protected string ObterOpcaoCrud()
         {
-            Console.WriteLine("Digite id para alteração:");
-            return Convert.ToInt32(Console.ReadLine());
-        }
-   
-        protected void MostrarOpcoesBasicaCRUD()
-        {
-            Console.WriteLine("Entre 1 para Inserir");
-            Console.WriteLine("Entre 2 para Editar");
-            Console.WriteLine("Entra 3 para Excluir:");
+            Console.Clear();
+            Console.WriteLine("Digite 1 para inserir novo registro");
+            Console.WriteLine("Digite 2 para visualizar todos registros");
+            Console.WriteLine("Digite 3 para editar um registro");
+            Console.WriteLine("Digite 4 para excluir um registro");
+            Console.WriteLine("Digite 5 para mais opções");
+            Console.WriteLine("Digite S para Voltar");
+            Console.WriteLine();
+
+            Console.Write("Opção: ");
+            string opcao = Console.ReadLine();
+
+            return opcao;
         }
 
+        protected void ApresentarMensagem(string mensagem, TipoMensagem tipoMensagem)
+        {
+            switch (tipoMensagem)
+            {
+                case TipoMensagem.Sucesso:
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    break;           
+
+                case TipoMensagem.Erro:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    break;
+
+                default:
+                    break;
+            }
+
+            Console.WriteLine("\n" +mensagem);
+            Console.ResetColor();
+            Console.ReadLine();
+            Console.Clear();
+        }
     }
 }

@@ -34,19 +34,19 @@ namespace ControleDeTarefas.UnitTest
         }
         public void InserirRegistroNoBanco()
         {
-            DeletaTabela();
-            Contato contato = new Contato("Juca", "jucas@email.com", "80808080", "senai", "diretor");
+            //DeletaTabela();
+            Contato contato = new Contato("JUJU", "jucas@email.com", "80808080", "senai", "diretor");
             controladorContato.Inserir(contato);
          
         }
         [TestMethod]
         public void Inserir()
         {
-            DeletaTabela();
+            InserirRegistroNoBanco();
             Contato contato = new Contato("Juca","jucas@email.com","80808080","senai","diretor");
             controladorContato.Inserir(contato);
-            Assert.AreEqual(1, controladorContato.ListarRegistrosDoBanco().Count);
-            Assert.AreEqual("Juca", controladorContato.SelecionarUmRegistroPorId(1).nome);
+            Assert.AreEqual(2, controladorContato.ListarRegistrosDoBanco().Count);
+            Assert.AreEqual("Juca", controladorContato.SelecionarUmRegistroPorId(2).nome);
         }
         [TestMethod]
         public void EditarContato()

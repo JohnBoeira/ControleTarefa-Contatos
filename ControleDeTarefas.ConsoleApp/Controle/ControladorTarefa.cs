@@ -126,8 +126,7 @@ namespace ControleDeTarefas.ConsoleApp.Controle
                 }
             }
             return tarefasFechadas;
-        }
-        
+        }       
         public void ConcluirTarefa(int id)
         {
             string enderecoDeConexao = @"Data Source=(LocalDb)\MSSqlLocalDB;Initial Catalog=DB_ControleDeTarefa;Integrated Security=True;Pooling=False";
@@ -185,6 +184,8 @@ namespace ControleDeTarefas.ConsoleApp.Controle
             return tarefas;
         }
         #endregion
+
+        
     }
 
 }

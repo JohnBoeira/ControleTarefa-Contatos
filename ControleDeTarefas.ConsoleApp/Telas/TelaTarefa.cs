@@ -8,52 +8,49 @@ using System.Threading.Tasks;
 
 namespace ControleDeTarefas.ConsoleApp.Telas
 {
-    public class TelaTarefa : TelaBase<Tarefa>
+    public class TelaTarefa : TelaCadastroBasico<Tarefa>
     {
         ControladorTarefa controladorTarefa;
 
-        public TelaTarefa()
+        public TelaTarefa(ControladorBase<Tarefa> controladorBase) : base(controladorBase)
         {
             controladorTarefa = new ControladorTarefa();
-        }
-
-        public string ObterOpcao()
+        }                 
+        protected override void CasosEspeciais()
         {
-            string opcao;
-            do
+            Console.Clear();
+            Console.WriteLine("Entre 1 para listar tarefas abertas");
+            Console.WriteLine("Entre 2 para listar tarefas fechadas");
+            Console.WriteLine("Entre 3 para Concluir tarefa");
+            string opcao = Console.ReadLine();
+            if (opcao == "1")
             {
-                Console.Clear();
-                MostrarOpcoesBasicaCRUD();
-                Console.WriteLine("Entre 4 para Concluir");
-                Console.WriteLine("Entre 5 para listar tarefas abertas");
-                Console.WriteLine("Entre 6 para listar tarefas fechadas");
-                Console.WriteLine("Entre S para Voltar");
-                opcao = Console.ReadLine();
-            } while (opcao != "1" && opcao !="2" && opcao != "3" && opcao != "4" && opcao != "5" && opcao != "6" && opcao.ToLower() != "s");
-            return opcao;
-        }       
-
-        public void ExecutarUmaAcao()
-        {
-            
-            while (true)
-            {
-                string opcao = ObterOpcao();
-                switch (opcao)
-                {
-                    case "1": controladorTarefa.Inserir(PegarRegistro("Inserir")); break;
-                    case "2": controladorTarefa.Editar(SelecionarIdParaAlteracao(), PegarRegistro("Editar")); break;
-                    case "3": controladorTarefa.Excluir(SelecionarIdParaAlteracao()); break;
-                    case "4": controladorTarefa.ConcluirTarefa(SelecionarIdParaAlteracao()); break;
-                    case "5": ListagemOrdenadaAberto(controladorTarefa.ListarTarefasAbertas()); break;
-                    case "6": ListagemOrdenadaFechado(controladorTarefa.ListarTarefasFechadas()); break;
-                    case "S": break;
-                }
+                ListagemOrdenadaAberto();
             }
-           
+            else if(opcao == "2"){
+                ListagemOrdenadaFechado();
+            }
+            else if (opcao == "3")
+            {
+                ListarRegistros();
+                int id =ObterIdParaAlteracao();
+                controladorTarefa.ConcluirTarefa(id);
+            }
+            else
+            {
+                Console.WriteLine("Valor incorreto");
+            }
         }
-
-        public Tarefa PegarRegistro(string opcao)
+        protected override void ListarRegistros()
+        {
+            List<Tarefa> tarefas = controladorTarefa.ListarRegistrosDoBanco();
+            tarefas.OrderBy(x => x.prioridade == 3).ThenBy(x => x.prioridade == 2).ThenBy(x => x.prioridade == 1);
+            foreach (var item in tarefas)
+            {
+                Console.WriteLine("ID: " + item.id + " Titulo: " + item.titulo + " Prioridade: " + item.prioridade + " Data Criação: " + item.dataDeCriacao.ToShortDateString() + " Data conclusão: " + item.dataConclusao.ToShortDateString() + " Percentagem" + item.percentualDeConclusao);
+            }
+        }
+        protected override Tarefa ObterRegistro(string opcao)
         {
             if (opcao == "Inserir")
             {
@@ -81,8 +78,9 @@ namespace ControleDeTarefas.ConsoleApp.Telas
                 return tarefa;
             }
         }
-        private void ListagemOrdenadaAberto(List<Tarefa> tarefas)
+        private void ListagemOrdenadaAberto()
         {
+            List<Tarefa> tarefas = controladorTarefa.ListarTarefasAbertas();
             tarefas.OrderBy(x => x.prioridade == 3).ThenBy(x => x.prioridade == 2).ThenBy(x => x.prioridade == 1);
             foreach (var item in tarefas)
             {
@@ -90,8 +88,9 @@ namespace ControleDeTarefas.ConsoleApp.Telas
             }
             Console.ReadLine();
         }
-        private void ListagemOrdenadaFechado(List<Tarefa> tarefas)
+        private void ListagemOrdenadaFechado()
         {
+            List<Tarefa> tarefas = controladorTarefa.ListarTarefasFechadas();
             tarefas.OrderBy(x => x.prioridade == 3).ThenBy(x => x.prioridade == 2).ThenBy(x => x.prioridade == 1);
             foreach (var item in tarefas)
             {

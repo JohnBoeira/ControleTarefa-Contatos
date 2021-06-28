@@ -28,14 +28,14 @@ namespace ControleDeTarefas.UnitTest
             comando.ExecuteNonQuery();
             con.Close();
         }
- 
+        
         public void InserirRegistroNoBanco()
         {
             DeletaTabelaTarefa();
             Tarefa tarefa = new Tarefa("Programar", 3);
             controladorTarefa.Inserir(tarefa);          
         }
-        
+            
         [TestMethod]
         public void Inserir()
         {

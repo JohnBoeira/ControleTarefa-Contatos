@@ -1,1 +1,1 @@
-﻿select * from TB_Tarefa
+﻿delete from TB_Compromisso

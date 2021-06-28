@@ -44,17 +44,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controle\ControladorBase.cs" />
+    <Compile Include="Controle\ControladorCompromisso.cs" />
     <Compile Include="Controle\ControladorContato.cs" />
     <Compile Include="Controle\ControladorTarefa.cs" />
+    <Compile Include="Dominio\Compromisso.cs" />
     <Compile Include="Dominio\Contato.cs" />
     <Compile Include="Dominio\EntidadeBase.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dominio\Tarefa.cs" />
     <Compile Include="Telas\TelaBase.cs" />
+    <Compile Include="Telas\TelaCadastroBasico.cs" />
+    <Compile Include="Telas\TelaCompromisso.cs" />
     <Compile Include="Telas\TelaContato.cs" />
     <Compile Include="Telas\TelaPrincipal.cs" />
     <Compile Include="Telas\TelaTarefa.cs" />
+    <Compile Include="Telas\TipoMensagem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

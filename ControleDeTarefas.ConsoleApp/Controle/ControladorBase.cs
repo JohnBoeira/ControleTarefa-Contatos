@@ -27,7 +27,6 @@ namespace ControleDeTarefas.ConsoleApp.Controle
             }
             return false;
         }
-
         public bool Editar(int id, T registro)
         {
             bool idExiste = SelecionarUmRegistroPorId(id) != null;
@@ -39,7 +38,6 @@ namespace ControleDeTarefas.ConsoleApp.Controle
 
             return false;
         }
-
         public bool Excluir(int id)
         {
             bool idExiste = SelecionarUmRegistroPorId(id) != null;
@@ -50,7 +48,6 @@ namespace ControleDeTarefas.ConsoleApp.Controle
             }
             return false;
         }
-
         public List<T> ListarRegistrosDoBanco()
         {
             SqlConnection con;
@@ -84,7 +81,6 @@ namespace ControleDeTarefas.ConsoleApp.Controle
             comando = new SqlCommand();
             comando.Connection = con;
         }
-
         protected abstract void InserirNoBanco(T registro);
         protected abstract void EditarNoBanco(T registro, int id);
         protected abstract void ExcluirNoBanco(int id);
