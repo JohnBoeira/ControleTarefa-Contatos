@@ -64,5 +64,6 @@
   <ItemGroup>
     <Build Include="dbo\Tables\TB_Tarefa.sql" />
     <Build Include="dbo\Tables\TB_Contatos.sql" />
+    <Build Include="dbo\Tables\TB_Compromisso.sql" />
   </ItemGroup>
 </Project>
